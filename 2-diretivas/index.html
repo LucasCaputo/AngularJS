@@ -11,8 +11,13 @@
             text-align: center;
             margin-top: 20px;
             margin-left: auto;
-            margin-right: auto;         
-
+            margin-right: auto;        
+        }
+        .table{
+            margin-top: 20px;
+        }
+        .form-control {
+            margin-bottom: 5px;
         }
     </style>
     <script src="lib/angular.js"></script>
@@ -20,12 +25,36 @@
         angular.module("listaTelefonica", [])
         angular.module("listaTelefonica").controller("listaTelefonicaCtrl", ($scope)=>{
            $scope.app ="listaTelefonica"
+           $scope.contatos = [
+               {nome: "Pedro", telefone: "9995-8885"},
+               {nome: "Maria", telefone: "9995-7687"},
+               {nome: "João", telefone: "9995-8956"}
+           ]
+           $scope.adicionarContato = (contato) =>{
+               $scope.contatos.push(angular.copy(contato))
+               delete $scope.contato
+           }
         })
     </script>
 </head>
 <body ng-controller="listaTelefonicaCtrl"> 
     <div class="jumbotron">
         <h4 ng-bind="app"></h4>
+        <table class="table table-striped">
+           <tr>
+               <th>Nome</th>
+               <th>Telefone</th>
+           </tr>
+
+           <tr ng-repeat= "contato in contatos"> 
+               <td>{{contato.nome}}</td>
+               <td>{{contato.telefone}}</td>
+           </tr>
+        </table>
+        <hr/>
+        <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+        <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+        <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>  
     </div>
 </body>
 </html>
